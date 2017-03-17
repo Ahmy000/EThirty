@@ -1,0 +1,30 @@
+# 
+brew 
+gradle: for android:
+xcode: stackoverflow link
+
+# octave
+ref: https://www.coursera.org/learn/machine-learning/supplement/ykU6M/installing-octave-matlab-on-mac-os-x-10-10-yosemite-and-10-9-mavericks
+ref: http://wiki.octave.org/Octave_for_MacOS_X#Package_Managers
+
+brew tap homebrew/science
+brew update && brew upgrade
+brew install octave
+
+/usr/local/share/octave/site/m/startup/octaverc
+setenv ("GNUTERM", "X11")
+
+brew install Caskroom/cask/xquartz
+reboot sysmtem
+
+brew uninstall gnuplot
+brew install gnuplot --with-x11
+
+add the following to ~/.bash_profile
+export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig
+
+# ffmeg
+ref: https://trac.ffmpeg.org/wiki/CompilationGuide/MacOSX
+
+brew install ffmpeg --with-fdk-aac --with-ffplay --with-freetype --with-libass --with-libquvi --with-libvorbis --with-libvpx --with-opus --with-x265
+NOTE: reboot system!?
