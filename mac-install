@@ -23,3 +23,37 @@ ref: https://trac.ffmpeg.org/wiki/CompilationGuide/MacOSX
 
 brew install ffmpeg --with-fdk-aac --with-ffplay --with-freetype --with-libass --with-libquvi --with-libvorbis --with-libvpx --with-opus --with-x265
 NOTE: reboot system!?
+
+
+## proxy
+# brew
+export ALL_PROXY=http://xxxx.xxx.com:8000
+
+# gem
+gem install --http-proxy http://xxx.xx.x:port cocoapods
+
+#
+gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/
+
+# permission
+sudo gem uninstall cocoapods 
+sudo gem install -n /usr/local/bin cocoapods
+
+# git
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+git config --global https.proxy 'socks5://127.0.0.1:1080'
+
+git -> https
+git config --global url.https://github.com/.insteadOf git://github.com/
+
+
+# npm
+//I run this command:
+npm config set strict-ssl false
+//Then set npm to run with http, instead of https:
+npm config set registry "http://registry.npmjs.org/"
+//Then I install packages using this syntax:
+npm --proxy http://username:password@cacheaddress.com.br:80 \
+install packagename
+
+ref: http://stackoverflow.com/questions/7559648/is-there-a-way-to-make-npm-install-the-command-to-work-behind-proxy
