@@ -30,11 +30,8 @@ cannot inherit from other structure,
 but only implement protocol
 
 ## terminology & Semantics
+# method function closure
 Strong Reference Cycles for Closures
-
-# method/function
 Mutating methods
 Curried Function
 
-# property
-property observer
