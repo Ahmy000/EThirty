@@ -1,30 +1,83 @@
 
-## alac/flac
+##
+# alac/flac
 ffmpeg -i input -acodec alac out.m4a
-or
 -c:a alac
 -c:a flac
 
 ref: https://linuxconfig.org/ffmpeg-audio-format-conversions
 
-## profile: high main baseline
+# profile: high main baseline
 ffmpeg -i input.mp4 -c:v libx264 -profile:v main -level:v 4.0 -r 25 output.mp4
 
-## audio to mp3
-- ffmpeg -i foo.m4a -acodec libmp3lame -aq 2 bar.mp3
-- for foo in *.m4a; do ffmpeg -i "$foo" -acodec libmp3lame -aq 2 "${foo%.m4a}.mp3"; done
-
-## audio
 # show waveform
 ref: https://trac.ffmpeg.org/wiki/Waveform
 
+## regular usage paramters
+#
+-ss 0:10 -t 120
+-an 
+-acodec copy
+-vcodec copy
+
+#
+-vf scale=-1:720
+-vcodec libx264
+-c:v libx264
+-r 30 #output frame rate
+
+#
+-c:a libfdk_aac #
+-c:a libfaac #support if you install FAAC
+-b:a 128k #
+
+# wmv [not support wmv3 and vc-1]
+-vcodec wmv1 # or wmv2
+
+## samples
+# adjust size 
+ffmpeg -y -i x0.mov -aspect 16:9 -vf scale=480x360,pad=640:360:80:0:black -r 30 x01.mov
+# audio to mp3
+- ffmpeg -i foo.m4a -acodec libmp3lame -aq 2 bar.mp3
+- for foo in *.m4a; do ffmpeg -i "$foo" -acodec libmp3lame -aq 2 "${foo%.m4a}.mp3"; done
+
+ffmpeg -i input.wmv -ss 60 -t 60 -acodec copy -vcodec copy output.wmv
+ffmpeg -i linsinity.mp4 -t 0:00:05 lin0-5.mov -ss 0:00:10 -t 0:00:05 lin5-10.mov -ss 0:00:20 -t 0:00:05 lin20-25.mov
+
+## subtitle, needs filter
+ffmpeg -i video.avi -vf subtitles=subtitle.srt out.avi
+
+# subtitle, as stream, need player support: VLC
+ffmpeg -i linsinity.mp4  -f srt -i linsinity.srt -c:v copy -c:a copy -c:s mov_text linwithsrt.mov
+
+### 
+# ass needs: --enable-libass.
+First convert the subtitles to .ass format:
+ffmpeg -i subtitles.srt subtitles.ass
+ffmpeg -i linsinity.mp4 -vf ass=linsinity.ass linwithass.mov
+
+
+## install reinstall
+brew options ffmpeg
+brew install ffmpeg --with-fdk-aac 
+brew info ffmpeg
+brew uninstall ffmpeg
+
+# brew install or compile yourself
+# https://trac.ffmpeg.org/wiki/CompilationGuide/MacOSX
+brew install ffmpeg --with-fdk-aac --with-ffplay --with-freetype --with-libass --with-libquvi --with-libvorbis --with-libvpx --with-opus --with-x265
+# maybe you comiple it best.
+
 ##
-codec: -c:v libx264
-resize: -vf scale=-1:720 
-no audio: -an
-time start: -ss start
-time duraction: -t time
--r 
+# sameq has been removed 
+
+# trim filter, NOT work perfect
+ffmpeg -i INPUT -vf trim=60:120
+
+# bypass[not work]
+ffmpeg -pass 1 -passlogfile ffmpeg2pass -g 1 -i input.mov  -b 16000k output.wmv
+ffmpeg -pass 2 -passlogfile ffmpeg2pass -g 1 -i input.mov  -b 16000k output.wmv
+
 ##
 #concat
 ffmpeg -f concat -i mylist.txt -c copy x.mov
@@ -50,7 +103,7 @@ ffmpeg -y -i x0.mov -aspect 16:9 -vf scale=480x360,pad=640:360:80:0:black -r 30 
 -c:a libfaac #support if you install FAAC
 -b:a 128k #
 
-#concat:
+#concat: not perfect
 video: the same frame size, frame rate,
 
 # subtitle, needs filter
@@ -67,27 +120,28 @@ ffmpeg -i linsinity.mp4 -vf ass=linsinity.ass linwithass.mov
 # wmv [not support wmv3 and vc-1]
 -vcodec wmv1 # or wmv2
 
-# profile: high main baseline
--profile:v high -level:v 4.0
+# bypass[not work]
+ffmpeg -pass 1 -passlogfile ffmpeg2pass -g 1 -i input.mov  -b 16000k output.wmv
+ffmpeg -pass 2 -passlogfile ffmpeg2pass -g 1 -i input.mov  -b 16000k output.wmv
 
-## install reinstall
+# install reinstall
 brew options ffmpeg
 brew install ffmpeg --with-fdk-aac 
 brew info ffmpeg
 brew uninstall ffmpeg
+
+# sameq has been removed 
+
+# trim filter, NOT work perfect
+ffmpeg -i INPUT -vf trim=60:120
 
 # brew install or compile yourself
 # https://trac.ffmpeg.org/wiki/CompilationGuide/MacOSX
 brew install ffmpeg --with-fdk-aac --with-ffplay --with-freetype --with-libass --with-libquvi --with-libvorbis --with-libvpx --with-opus --with-x265
 # maybe you comiple it best.
 
-##
-# sameq has been removed 
-
-# trim filter, NOT work perfect
-ffmpeg -i INPUT -vf trim=60:120
-
-
-# bypass[not work]
-ffmpeg -pass 1 -passlogfile ffmpeg2pass -g 1 -i input.mov  -b 16000k output.wmv
-ffmpeg -pass 2 -passlogfile ffmpeg2pass -g 1 -i input.mov  -b 16000k output.wmv
+## concat not perfect
+ffmpeg -f concat -i mylist.txt -c copy x.mov
+mylist.txt:
+file x1.mov
+file x2.mov
