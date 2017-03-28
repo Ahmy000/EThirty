@@ -27,6 +27,11 @@ ref: https://trac.ffmpeg.org/wiki/Waveform
 -r 30 #output frame rate
 
 #
+-f srt -i linsinity.srt -c:s mov_text
+-vf subtitles=subtitle.srt
+-vf ass=
+
+#
 -c:a libfdk_aac #
 -c:a libfaac #support if you install FAAC
 -b:a 128k #
@@ -44,11 +49,19 @@ ffmpeg -y -i x0.mov -aspect 16:9 -vf scale=480x360,pad=640:360:80:0:black -r 30 
 ffmpeg -i input.wmv -ss 60 -t 60 -acodec copy -vcodec copy output.wmv
 ffmpeg -i linsinity.mp4 -t 0:00:05 lin0-5.mov -ss 0:00:10 -t 0:00:05 lin5-10.mov -ss 0:00:20 -t 0:00:05 lin20-25.mov
 
+# fast forward, need -an
+ffmpeg -i l1.mp4 -filter:v "setpts=0.5*PTS" -an l1f.mp4
+
 ## subtitle, needs filter
 ffmpeg -i video.avi -vf subtitles=subtitle.srt out.avi
 
 # subtitle, as stream, need player support: VLC
 ffmpeg -i linsinity.mp4  -f srt -i linsinity.srt -c:v copy -c:a copy -c:s mov_text linwithsrt.mov
+
+# ass
+# add subtitle with ass, and need --enable-libass
+ffmpeg -i linsinity.srt linsinity.ass
+ffmpeg -i linsinity.mp4 -vf ass=linsinity.ass linass.mov
 
 ### 
 # ass needs: --enable-libass.
