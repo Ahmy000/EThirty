@@ -4,7 +4,8 @@ ffmpeg -i file_cannot_play_with_mp.mov -flags:v +qscale -global_quality:v 0 -r 2
 
 -flags:v +qscale -global_quality:v 0
 -profile:v high -level:v 4.0
--preset:v veryfast -crf:v 20 -c:v libx264 -x264opts colorprim=bt709:transfer=bt709:colormatrix=bt709:fullrange=off
+-preset:v veryfast -crf:v 20
+-c:v libx264 -x264opts colorprim=bt709:transfer=bt709:colormatrix=bt709:fullrange=off
 
 ##
 # alac/flac
