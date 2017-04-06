@@ -8,6 +8,13 @@ ffmpeg -i file_cannot_play_with_mp.mov -flags:v +qscale -global_quality:v 0 -r 2
 -c:v libx264 -x264opts colorprim=bt709:transfer=bt709:colormatrix=bt709:fullrange=off
 
 ##
+# compression rate
+[image width] x [image height] x [framerate] x [motion rank] x 0.07 = [desired bitrate]
+
+ref: 
+http://stackoverflow.com/questions/5024114/suggested-compression-ratio-with-h-264
+
+##
 # alac/flac
 ffmpeg -i input -acodec alac out.m4a
 -c:a alac
