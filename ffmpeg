@@ -74,7 +74,10 @@ ffmpeg -i l1.mp4 -filter:v "setpts=0.5*PTS" -an l1f.mp4
 ## subtitle, needs filter
 ffmpeg -i video.avi -vf subtitles=subtitle.srt out.avi
 
-# subtitle, as stream, need player support: VLC
+# subtitle, as stream
+ffmpeg -i input.mp4 -i subtitles.srt -c copy -c:s mov_text -map 0 -map 1 -map_metadata 0 output.mp4
+
+# not work
 ffmpeg -i linsinity.mp4  -f srt -i linsinity.srt -c:v copy -c:a copy -c:s mov_text linwithsrt.mov
 
 # ass
