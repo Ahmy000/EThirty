@@ -3,7 +3,7 @@
 
 # 
 AnyCollection vs Collection, what's AnyXXX
-Collection is a protocol and AnyCollection is a class that only conforms Collection
+Collection is a protocol and AnyCollection is a structure that only conforms Collection
 
 # 
 ref: http://stackoverflow.com/questions/30565875/what-is-the-difference-between-sequencetype-and-collectiontype-in-swift
