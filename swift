@@ -1,5 +1,9 @@
 
 ### 0510
+#
+NSRange vs Range
+func NSMakeRange(_ loc: Int, _ len: Int) -> NSRange
+Range: init(uncheckedBounds: (lower: Bound, upper: Bound)), let underFive = 0.0..<5.0
 
 # 
 AnyCollection vs Collection, what's AnyXXX
