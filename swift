@@ -1,14 +1,17 @@
 
 ### 0510
 
-## 
-## 
+# 
+AnyCollection vs Collection, what's AnyXXX
+Collection is a protocol and AnyCollection is a class that only conforms Collection
+
+# 
 ref: http://stackoverflow.com/questions/30565875/what-is-the-difference-between-sequencetype-and-collectiontype-in-swift
 
 A simple understand is that Sequence can be enumerated by for...in
 and Collection can access element by index
 #
-iteratorprotocol( as GeneratorType) has only method next()
+IteratorProtocol( as GeneratorType) has only method next()
 
 #
 Sequence is a type that can be iterated with a for...in loop.
