@@ -1,5 +1,20 @@
 ## FAQ
 
+# 4 
+ffmpeg -i left.mp4 -i right.mp4 -i left.mp4 -i right.mp4 -filter_complex 
+"nullsrc=size=640x480 [base]; [0:v] setpts=PTS-STARTPTS, scale=320x240 [upperleft]; 
+[1:v] setpts=PTS-STARTPTS, scale=320x240 [upperright]; 
+[2:v] setpts=PTS-STARTPTS, scale=320x240 [lowerleft]; 
+[3:v] setpts=PTS-STARTPTS, scale=320x240 [lowerright]; 
+[base][upperleft] overlay=shortest=1 [tmp1]; 
+[tmp1][upperright] overlay=shortest=1:x=320 [tmp2]; 
+[tmp2][lowerleft] overlay=shortest=1:y=240 [tmp3]; 
+[tmp3][lowerright] overlay=shortest=1:x=320:y=240" 
+-c:v libx264 out1.mp4
+
+ref: 
+https://trac.ffmpeg.org/wiki/Create%20a%20mosaic%20out%20of%20several%20input%20videos
+
 # left/right
 ffmpeg -i left.mp4 -vf 
 "[in] scale=iw/2:ih/2, pad=2*iw:ih [left]; movie=right.mp4, scale=iw/3:ih/3, fade=out:300:30:alpha=1 [right];
