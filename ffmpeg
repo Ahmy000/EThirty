@@ -1,5 +1,10 @@
 ## FAQ
 
+# inner
+ffmpeg -i left.mp4 -vf "movie=small.mp4[inner]; [in][inner] overlay =10:600 [out]" completed.mp4
+
+ref: http://www.daniel-mitchell.com/blog/video-in-a-video-ffmpeg/
+
 # 4 
 ffmpeg -i left.mp4 -i right.mp4 -i left.mp4 -i right.mp4 -filter_complex 
 "nullsrc=size=640x480 [base]; [0:v] setpts=PTS-STARTPTS, scale=320x240 [upperleft]; 
