@@ -4,11 +4,21 @@
 
 # trim & combile
 
+# map
+
+
 #
 ##
 # simple delay 2nd file
 ffmpeg -i bg.mp4 -itsoffset 2.0 -i in.mp4 -filter_complex overlay out.mp4
 ffmpeg -i bg.mp4 -itsoffset 2.0 -i in.mp4 -filter_complex overlay=10:600 out.mp4
+
+#
+ffmpeg -i bg.mp4 -vf "movie=in.mp4, scale=640:360 [inner]; [in][inner] overlay=10:500 [out]" c1.mp4
+ffmpeg -i bg.mp4 -vf "movie=in.mp4, scale=640:360, fade=out:200:30:alpha=1 [inner]; [in][inner] overlay=10:500 [out]" c1.mp4
+ffmpeg -i bg.mp4 -vf "movie=in.mp4, scale=640:360, fade=in:0:30:alpha=1, fade=out:200:30:alpha=0 [inner]; [in][inner] overlay=10:500 [out]" c1.mp4
+
+fade=out:st=6:d=3:alpha=1, start frame, during frame
 
 # inner
 ffmpeg -i left.mp4 -vf "movie=small.mp4[inner]; [in][inner] overlay =10:600 [out]" completed.mp4
