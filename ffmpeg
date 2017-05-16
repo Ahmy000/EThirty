@@ -6,6 +6,8 @@
 
 #
 ##
+# simple delay 2nd file
+ffmpeg -i bg.mp4 -itsoffset 2.0 -i in.mp4 -filter_complex overlay out.mp4
 
 # inner
 ffmpeg -i left.mp4 -vf "movie=small.mp4[inner]; [in][inner] overlay =10:600 [out]" completed.mp4
