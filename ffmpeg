@@ -1,4 +1,30 @@
-## FAQ
+
+
+### tut
+## basic
+# get get information
+
+# change format
+
+# mute
+
+# get audio
+
+# change size
+
+# trim
+
+#
+
+## basic knowledge
+
+# map
+
+# filter & graph
+
+# 
+
+### FAQ
 
 # filter_complex & overlay
 
@@ -8,7 +34,7 @@
 
 
 #
-##
+###
 # simple delay 2nd file
 ffmpeg -i bg.mp4 -itsoffset 2.0 -i in.mp4 -filter_complex overlay out.mp4
 ffmpeg -i bg.mp4 -itsoffset 2.0 -i in.mp4 -filter_complex overlay=10:600 out.mp4
