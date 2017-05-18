@@ -11,6 +11,9 @@
 # overlay: fade in/out
 
 # left/right
+ffmpeg -i left.mp4 -vf 
+"[in] scale=iw/2:ih/2, pad=2*iw:ih [left]; movie=right.mp4, scale=iw/3:ih/3, fade=out:300:30:alpha=1 [right];
+[left][right] overlay=main_w/2:0 [out]" Output.mp4
 
 ## script
 
