@@ -5,6 +5,14 @@
 
 # what's the  timestamp in stream?
 ## scale & pad
+# scale to match the whole size
+ffmpeg -i input.avi -vf scale=320:240 output.avi
+ffmpeg -i input.avi -vf scale=iw*3:ih*2 output.avi
+
+# scale & pad
+ffmpeg -i input -vf "scale=-1:720,pad=1280:ih:(ow-iw)/2" output
+
+make sure the size after scale is inside the pad.
 
 ## 
 # delete multi-pieces inside a movie
