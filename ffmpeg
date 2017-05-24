@@ -20,6 +20,7 @@ ffmpeg -i 1.mp4 -i 2.mp4 -i 3.mp4 -filter_complex \
   "[0:0] [0:1] [1:0] [1:1] [2:0] [2:1]
    concat=n=3:v=1:a=1 [v] [a1]"  -map '[v]' -map '[a1]' output.mp4
    
+ref: https://trac.ffmpeg.org/wiki/Concatenate
 # overlay: delay
 setpts=PTS+5/TB
 
