@@ -4,16 +4,22 @@
 ## questions
 
 # what's the  timestamp in stream?
+## scale & pad
 
 ## 
 # delete multi-pieces inside a movie
 
-# concat multi movies
+# concat multi movies, two audio
 ffmpeg -i 1.mp4 -i 2.mp4 -i 3.mp4 -filter_complex \
   '[0:0] [0:1] [0:2] [1:0] [1:1] [1:2] [2:0] [2:1] [2:2]
    concat=n=3:v=1:a=2 [v] [a1] [a2]' \
   -map '[v]' -map '[a1]' -map '[a2]' output.mp4
   
+# concat with only one audio
+ffmpeg -i 1.mp4 -i 2.mp4 -i 3.mp4 -filter_complex \
+  "[0:0] [0:1] [1:0] [1:1] [2:0] [2:1]
+   concat=n=3:v=1:a=1 [v] [a1]"  -map '[v]' -map '[a1]' output.mp4
+   
 # overlay: delay
 setpts=PTS+5/TB
 
