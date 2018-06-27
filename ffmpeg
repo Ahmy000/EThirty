@@ -1,4 +1,15 @@
 
+### 
+# concat 
+ffmpeg -f concat -i list.txt combined.mp4
+-
+file video.mp4
+inpoint 34.5
+outpoint 55.1
+file video.mp4
+inpoint 111.0
+outpoint 155.3
+-
 
 ### Book index
 ## questions
